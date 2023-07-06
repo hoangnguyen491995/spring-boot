@@ -1,7 +1,9 @@
 package com.example.shoppApp.controller;
 
 import com.example.shoppApp.entity.User;
+import com.example.shoppApp.service.IEmailService;
 import com.example.shoppApp.service.IUserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +12,12 @@ import java.util.List;
 @RestController
 @RequestMapping()
 @CrossOrigin
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    IUserService userService;
+    final IUserService userService;
+
+    final IEmailService emailService;
 
     @GetMapping("/admin/list")
     public List<User> getAllUser() {
@@ -54,5 +58,6 @@ public class UserController {
     public User getUserById(@PathVariable("id") Long id) {
         return userService.findById(id);
     }
+
 
 }

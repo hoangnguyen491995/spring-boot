@@ -83,7 +83,8 @@ public class UserService implements IUserService {
         LocalDate currentDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd");
         String formattedDate = currentDate.format(formatter);
-        return userRepository.findByBirthdayContaining(formattedDate);
+        var result = userRepository.findByBirthdayContaining(formattedDate);
+        return result.stream().peek(i -> i.setChats(null)).collect(Collectors.toList());
     }
 
     @Override
